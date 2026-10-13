@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>E-Values: From Statistics to ML | NeurIPS 2026 Workshop</title>
+    <meta name="description" content="NeurIPS 2026 workshop on e-values, anytime-valid inference, sequential testing, and modern machine learning.">
+    <meta property="og:title" content="E-Values: From Statistics to ML">
+    <meta property="og:description" content="A NeurIPS 2026 workshop bringing together researchers in statistics, machine learning, game-theoretic probability, and sequential analysis.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./evals_files/css2" rel="stylesheet">
+    <link rel="stylesheet" href="./evals_files/styles.css">
+  <style type="text/css">.CtxtMenu_InfoClose {  top:.2em; right:.2em;}
+.CtxtMenu_InfoContent {  overflow:auto; text-align:left; font-size:80%;  padding:.4em .6em; border:1px inset; margin:1em 0px;  max-height:20em; max-width:30em; background-color:#EEEEEE;  white-space:normal;}
+.CtxtMenu_Info.CtxtMenu_MousePost {outline:none;}
+.CtxtMenu_Info {  position:fixed; left:50%; width:auto; text-align:center;  border:3px outset; padding:1em 2em; background-color:#DDDDDD;  color:black;  cursor:default; font-family:message-box; font-size:120%;  font-style:normal; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 15px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius:15px;               /* Safari and Chrome */  -moz-border-radius:15px;                  /* Firefox */  -khtml-border-radius:15px;                /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */  filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color="gray", Positive="true"); /* IE */}
+</style><style type="text/css">.CtxtMenu_MenuClose {  position:absolute;  cursor:pointer;  display:inline-block;  border:2px solid #AAA;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  font-family: "Courier New", Courier;  font-size:24px;  color:#F0F0F0}
+.CtxtMenu_MenuClose span {  display:block; background-color:#AAA; border:1.5px solid;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  line-height:0;  padding:8px 0 6px     /* may need to be browser-specific */}
+.CtxtMenu_MenuClose:hover {  color:white!important;  border:2px solid #CCC!important}
+.CtxtMenu_MenuClose:hover span {  background-color:#CCC!important}
+.CtxtMenu_MenuClose:hover:focus {  outline:none}
+</style><style type="text/css">.CtxtMenu_Menu {  position:absolute;  background-color:white;  color:black;  width:auto; padding:5px 0px;  border:1px solid #CCCCCC; margin:0; cursor:default;  font: menu; text-align:left; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 5px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius: 5px;             /* Safari and Chrome */  -moz-border-radius: 5px;                /* Firefox */  -khtml-border-radius: 5px;              /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */}
+.CtxtMenu_MenuItem {  padding: 1px 2em;  background:transparent;}
+.CtxtMenu_MenuArrow {  position:absolute; right:.5em; padding-top:.25em; color:#666666;  font-family: null; font-size: .75em}
+.CtxtMenu_MenuActive .CtxtMenu_MenuArrow {color:white}
+.CtxtMenu_MenuArrow.CtxtMenu_RTL {left:.5em; right:auto}
+.CtxtMenu_MenuCheck {  position:absolute; left:.7em;  font-family: null}
+.CtxtMenu_MenuCheck.CtxtMenu_RTL { right:.7em; left:auto }
+.CtxtMenu_MenuRadioCheck {  position:absolute; left: .7em;}
+.CtxtMenu_MenuRadioCheck.CtxtMenu_RTL {  right: .7em; left:auto}
+.CtxtMenu_MenuInputBox {  padding-left: 1em; right:.5em; color:#666666;  font-family: null;}
+.CtxtMenu_MenuInputBox.CtxtMenu_RTL {  left: .1em;}
+.CtxtMenu_MenuComboBox {  left:.1em; padding-bottom:.5em;}
+.CtxtMenu_MenuSlider {  left: .1em;}
+.CtxtMenu_SliderValue {  position:absolute; right:.1em; padding-top:.25em; color:#333333;  font-size: .75em}
+.CtxtMenu_SliderBar {  outline: none; background: #d3d3d3}
+.CtxtMenu_MenuLabel {  padding: 1px 2em 3px 1.33em;  font-style:italic}
+.CtxtMenu_MenuRule {  border-top: 1px solid #DDDDDD;  margin: 4px 3px;}
+.CtxtMenu_MenuDisabled {  color:GrayText}
+.CtxtMenu_MenuActive {  background-color: #606872;  color: white;}
+.CtxtMenu_MenuDisabled:focus {  background-color: #E8E8E8}
+.CtxtMenu_MenuLabel:focus {  background-color: #E8E8E8}
+.CtxtMenu_ContextMenu:focus {  outline:none}
+.CtxtMenu_ContextMenu .CtxtMenu_MenuItem:focus {  outline:none}
+.CtxtMenu_SelectionMenu {  position:relative; float:left;  border-bottom: none; -webkit-box-shadow:none; -webkit-border-radius:0px; }
+.CtxtMenu_SelectionItem {  padding-right: 1em;}
+.CtxtMenu_Selection {  right: 40%; width:50%; }
+.CtxtMenu_SelectionBox {  padding: 0em; max-height:20em; max-width: none;  background-color:#FFFFFF;}
+.CtxtMenu_SelectionDivider {  clear: both; border-top: 2px solid #000000;}
+.CtxtMenu_Menu .CtxtMenu_MenuClose {  top:-10px; left:-10px}
+</style><style id="MJX-CHTML-styles">
+mjx-container[jax="CHTML"] {
+  line-height: 0;
+}
+
+mjx-container [space="1"] {
+  margin-left: .111em;
+}
+
+mjx-container [space="2"] {
+  margin-left: .167em;
+}
+
+mjx-container [space="3"] {
+  margin-left: .222em;
+}
+
+mjx-container [space="4"] {
+  margin-left: .278em;
+}
+
+mjx-container [space="5"] {
+  margin-left: .333em;
+}
+
+mjx-container [rspace="1"] {
+  margin-right: .111em;
+}
+
+mjx-container [rspace="2"] {
+  margin-right: .167em;
+}
+
+mjx-container [rspace="3"] {
+  margin-right: .222em;
+}
+
+mjx-container [rspace="4"] {
+  margin-right: .278em;
+}
+
+mjx-container [rspace="5"] {
+  margin-right: .333em;
+}
+
+mjx-container [size="s"] {
+  font-size: 70.7%;
+}
+
+mjx-container [size="ss"] {
+  font-size: 50%;
+}
+
+mjx-container [size="Tn"] {
+  font-size: 60%;
+}
+
+mjx-container [size="sm"] {
+  font-size: 85%;
+}
+
+mjx-container [size="lg"] {
+  font-size: 120%;
+}
+
+mjx-container [size="Lg"] {
+  font-size: 144%;
+}
+
+mjx-container [size="LG"] {
+  font-size: 173%;
+}
+
+mjx-container [size="hg"] {
+  font-size: 207%;
+}
+
+mjx-container [size="HG"] {
+  font-size: 249%;
+}
+
+mjx-container [width="full"] {
+  width: 100%;
+}
+
+mjx-box {
+  display: inline-block;
+}
+
+mjx-block {
+  display: block;
+}
+
+mjx-itable {
+  display: inline-table;
+}
+
+mjx-row {
+  display: table-row;
+}
+
+mjx-row > * {
+  display: table-cell;
+}
+
+mjx-mtext {
+  display: inline-block;
+}
+
+mjx-mstyle {
+  display: inline-block;
+}
+
+mjx-merror {
+  display: inline-block;
+  color: red;
+  background-color: yellow;
+}
+
+mjx-mphantom {
+  visibility: hidden;
+}
+
+_::-webkit-full-page-media, _:future, :root mjx-container {
+  will-change: opacity;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-c::before {
+  display: block;
+  width: 0;
+}
+
+.MJX-TEX {
+  font-family: MJXZERO, MJXTEX;
+}
+
+.TEX-B {
+  font-family: MJXZERO, MJXTEX-B;
+}
+
+.TEX-I {
+  font-family: MJXZERO, MJXTEX-I;
+}
+
+.TEX-MI {
+  font-family: MJXZERO, MJXTEX-MI;
+}
+
+.TEX-BI {
+  font-family: MJXZERO, MJXTEX-BI;
+}
+
+.TEX-S1 {
+  font-family: MJXZERO, MJXTEX-S1;
+}
+
+.TEX-S2 {
+  font-family: MJXZERO, MJXTEX-S2;
+}
+
+.TEX-S3 {
+  font-family: MJXZERO, MJXTEX-S3;
+}
+
+.TEX-S4 {
+  font-family: MJXZERO, MJXTEX-S4;
+}
+
+.TEX-A {
+  font-family: MJXZERO, MJXTEX-A;
+}
+
+.TEX-C {
+  font-family: MJXZERO, MJXTEX-C;
+}
+
+.TEX-CB {
+  font-family: MJXZERO, MJXTEX-CB;
+}
+
+.TEX-FR {
+  font-family: MJXZERO, MJXTEX-FR;
+}
+
+.TEX-FRB {
+  font-family: MJXZERO, MJXTEX-FRB;
+}
+
+.TEX-SS {
+  font-family: MJXZERO, MJXTEX-SS;
+}
+
+.TEX-SSB {
+  font-family: MJXZERO, MJXTEX-SSB;
+}
+
+.TEX-SSI {
+  font-family: MJXZERO, MJXTEX-SSI;
+}
+
+.TEX-SC {
+  font-family: MJXZERO, MJXTEX-SC;
+}
+
+.TEX-T {
+  font-family: MJXZERO, MJXTEX-T;
+}
+
+.TEX-V {
+  font-family: MJXZERO, MJXTEX-V;
+}
+
+.TEX-VB {
+  font-family: MJXZERO, MJXTEX-VB;
+}
+
+mjx-stretchy-v mjx-c, mjx-stretchy-h mjx-c {
+  font-family: MJXZERO, MJXTEX-S1, MJXTEX-S4, MJXTEX, MJXTEX-A ! important;
+}
+
+@font-face /* 0 */ {
+  font-family: MJXZERO;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Zero.woff") format("woff");
+}
+
+@font-face /* 1 */ {
+  font-family: MJXTEX;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Main-Regular.woff") format("woff");
+}
+
+@font-face /* 2 */ {
+  font-family: MJXTEX-B;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Main-Bold.woff") format("woff");
+}
+
+@font-face /* 3 */ {
+  font-family: MJXTEX-I;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Math-Italic.woff") format("woff");
+}
+
+@font-face /* 4 */ {
+  font-family: MJXTEX-MI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Main-Italic.woff") format("woff");
+}
+
+@font-face /* 5 */ {
+  font-family: MJXTEX-BI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Math-BoldItalic.woff") format("woff");
+}
+
+@font-face /* 6 */ {
+  font-family: MJXTEX-S1;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size1-Regular.woff") format("woff");
+}
+
+@font-face /* 7 */ {
+  font-family: MJXTEX-S2;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size2-Regular.woff") format("woff");
+}
+
+@font-face /* 8 */ {
+  font-family: MJXTEX-S3;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size3-Regular.woff") format("woff");
+}
+
+@font-face /* 9 */ {
+  font-family: MJXTEX-S4;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Size4-Regular.woff") format("woff");
+}
+
+@font-face /* 10 */ {
+  font-family: MJXTEX-A;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_AMS-Regular.woff") format("woff");
+}
+
+@font-face /* 11 */ {
+  font-family: MJXTEX-C;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Regular.woff") format("woff");
+}
+
+@font-face /* 12 */ {
+  font-family: MJXTEX-CB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Bold.woff") format("woff");
+}
+
+@font-face /* 13 */ {
+  font-family: MJXTEX-FR;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Fraktur-Regular.woff") format("woff");
+}
+
+@font-face /* 14 */ {
+  font-family: MJXTEX-FRB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Fraktur-Bold.woff") format("woff");
+}
+
+@font-face /* 15 */ {
+  font-family: MJXTEX-SS;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Regular.woff") format("woff");
+}
+
+@font-face /* 16 */ {
+  font-family: MJXTEX-SSB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Bold.woff") format("woff");
+}
+
+@font-face /* 17 */ {
+  font-family: MJXTEX-SSI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Italic.woff") format("woff");
+}
+
+@font-face /* 18 */ {
+  font-family: MJXTEX-SC;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Script-Regular.woff") format("woff");
+}
+
+@font-face /* 19 */ {
+  font-family: MJXTEX-T;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Typewriter-Regular.woff") format("woff");
+}
+
+@font-face /* 20 */ {
+  font-family: MJXTEX-V;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Vector-Regular.woff") format("woff");
+}
+
+@font-face /* 21 */ {
+  font-family: MJXTEX-VB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2/MathJax_Vector-Bold.woff") format("woff");
+}
+</style></head>
+  <body>
+    <a class="skip-link" href="https://e-values-workshop.github.io/#top">Skip to content</a>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="https://e-values-workshop.github.io/#top" aria-label="E-Values workshop home">
+          E-Values
+          <span>NeurIPS 2026</span>
+        </a>
+
+        <nav class="desktop-nav" aria-label="Main navigation">
+          <a href="https://e-values-workshop.github.io/#topics">Topics</a>
+          <a href="https://e-values-workshop.github.io/#speakers">Speakers</a>
+          <a href="https://e-values-workshop.github.io/#schedule">Schedule</a>
+          <a href="https://e-values-workshop.github.io/#cfp">Call for Papers</a>
+          <a href="https://e-values-workshop.github.io/#dates">Dates</a>
+          <a href="https://e-values-workshop.github.io/#organizers">Organizers</a>
+        </nav>
+
+        <a class="header-cta" href="https://e-values-workshop.github.io/#schedule">Schedule</a>
+      </div>
+
+      <nav class="mobile-nav shell" aria-label="Mobile navigation">
+        <a href="https://e-values-workshop.github.io/#topics">Topics</a>
+        <a href="https://e-values-workshop.github.io/#speakers">Speakers</a>
+        <a href="https://e-values-workshop.github.io/#schedule">Schedule</a>
+        <a href="https://e-values-workshop.github.io/#cfp">CFP</a>
+        <a href="https://e-values-workshop.github.io/#dates">Dates</a>
+        <a href="https://e-values-workshop.github.io/#organizers">Organizers</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero shell">
+        <div class="hero-frame">
+          <div class="hero-copy">
+            <p class="eyebrow">NeurIPS 2026 Workshop</p>
+            <div class="rule"></div>
+            <h1>E-Values: From Statistics to ML</h1>
+            <p class="hero-subtitle">
+              Bringing together statistics, machine learning, game-theoretic probability, and sequential
+              analysis to advance e-values in modern ML systems.
+            </p>
+            <p class="hero-text">
+              Recent years have seen a paradigm shift in hypothesis testing and uncertainty
+              quantification through e-values: non-negative random variables whose null expectation
+              is bounded by one. They support anytime-valid inference, continuous monitoring, and
+              data-adaptive decision making, making them especially relevant for modern ML systems
+              that are evaluated, audited, and updated sequentially. This workshop will bring these
+              threads together through invited talks, contributed talks, posters, and a panel
+              discussion.
+            </p>
+
+            <div class="hero-actions" aria-label="Primary actions">
+              <a class="button primary" href="https://e-values-workshop.github.io/#schedule">Workshop Schedule</a>
+              <a class="button secondary" href="https://e-values-workshop.github.io/#cfp">Call for Papers</a>
+            </div>
+            <p class="hero-update">
+              Update: Deadline is now extended until 23:59 AOE, September 5th, 2026!
+            </p>
+          </div>
+
+          <aside class="glance-panel" aria-label="Workshop details at a glance">
+            <p class="eyebrow">At a glance</p>
+            <dl>
+              <div>
+                <dt>Date</dt>
+                <dd>December 13, 2026</dd>
+              </div>
+              <div>
+                <dt>Location</dt>
+                <dd>Room 251, Palais des Congrès, Paris, France</dd>
+              </div>
+              <div>
+                <dt>Format</dt>
+                <dd>Invited talks, contributed talks, posters, and panel discussion</dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+      </section>
+
+      <section id="topics" class="section section-tint">
+        <div class="shell">
+          <div class="section-heading">
+            <p class="eyebrow">Topics</p>
+            <div class="rule"></div>
+            <h2>From safe testing to deployed ML systems</h2>
+            <p>
+              We welcome polished results as well as early ideas, emerging connections, and
+              practical case studies that help define the role of e-values in machine learning.
+            </p>
+          </div>
+
+          <div class="topic-grid">
+            <article class="panel topic-panel">
+              <h3>Foundations &amp; Theory</h3>
+              <ol>
+                <li>E-values, e-processes, test martingales, and game-theoretic probability</li>
+                <li>E-values as evidence, including links to p-values and Bayes factors</li>
+                <li>E-values, Bayesian methods, pseudo-Bayesian methods, and e-posteriors</li>
+                <li>Multiple testing, FDR, FWER, and empirical-Bayes connections</li>
+                <li>Compositional e-value guarantees across multi-stage or multi-agent workflows</li>
+              </ol>
+            </article>
+
+            <article class="panel topic-panel">
+              <h3>Sequential &amp; Adaptive Inference</h3>
+              <ol>
+                <li>Sequential monitoring, evidence aggregation, and stopping rules with e-values</li>
+                <li>Anytime-valid confidence intervals, prediction sets, and safe testing</li>
+                <li>Optional stopping, optional continuation, and continuous monitoring</li>
+                <li>Conformal prediction, adaptive coverage, and e-based prediction sets</li>
+                <li>A/B testing, adaptive experimentation, bandits, and online learning regret</li>
+              </ol>
+            </article>
+
+            <article class="panel topic-panel">
+              <h3>ML Applications, Auditing &amp; Case Studies</h3>
+              <ol>
+                <li>Uncertainty under prompt variation, adaptivity, and distribution shift</li>
+                <li>E-values for LLM evaluation, foundation models, and deployed AI systems</li>
+                <li>Auditing and verification for tool use, external feedback loops, fairness, and privacy</li>
+                <li>Applications in science, medicine, safety-critical systems, and decision support</li>
+                <li>Software, computation, and practical case studies with e-values</li>
+              </ol>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="speakers" class="section shell">
+        <div class="section-heading">
+          <p class="eyebrow">Invited Speakers</p>
+          <div class="rule"></div>
+          <h2>Confirmed invited speakers</h2>
+          <p>
+            The invited program brings together experts spanning e-values, sequential analysis,
+            multiple testing, bandits, economics, conformal prediction, and reliable machine learning.
+          </p>
+        </div>
+
+        <div class="speaker-grid">
+          <article class="person-card">
+            <img class="speaker-photo" src="./evals_files/michael-jordan.jpg" alt="Michael I. Jordan">
+            <h3>
+              <a href="https://people.eecs.berkeley.edu/~jordan/" target="_blank" rel="noreferrer">
+                Michael I. Jordan
+              </a>
+            </h3>
+            <p>UC Berkeley and INRIA Paris</p>
+          </article>
+          <article class="person-card">
+            <img class="speaker-photo" src="./evals_files/rianne-de-heide.jpg" alt="Rianne de Heide">
+            <h3>
+              <a href="https://riannedeheide.github.io/" target="_blank" rel="noreferrer">
+                Rianne de Heide
+              </a>
+            </h3>
+            <p>University of Twente and CWI</p>
+          </article>
+          <article class="person-card">
+            <img class="speaker-photo" src="./evals_files/eugenio-clerico.jpg" alt="Eugenio Clerico">
+            <h3>
+              <a href="https://eugenioclerico.me/" target="_blank" rel="noreferrer">
+                Eugenio Clerico
+              </a>
+            </h3>
+            <p>University of Oxford</p>
+          </article>
+          <article class="person-card">
+            <img class="speaker-photo" src="./evals_files/emilie-kaufmann.jpg" alt="Emilie Kaufmann">
+            <h3>
+              <a href="https://emiliekaufmann.github.io/" target="_blank" rel="noreferrer">
+                Emilie Kaufmann
+              </a>
+            </h3>
+            <p>CNRS, Université de Lille</p>
+          </article>
+          <article class="person-card">
+            <img class="speaker-photo" src="./evals_files/nick-koning.jpg" alt="Nick Koning">
+            <h3>
+              <a href="https://www.nickkoning.com/home" target="_blank" rel="noreferrer">
+                Nick Koning
+              </a>
+            </h3>
+            <p>Erasmus University Rotterdam</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="schedule" class="section section-tint">
+        <div class="shell">
+          <div class="section-heading">
+            <p class="eyebrow">Schedule</p>
+            <div class="rule"></div>
+            <h2>Workshop program (Tentative)</h2>
+            <p>
+              The final date, schedule, and detailed speaker assignments will be updated once NeurIPS
+              scheduling is confirmed.
+            </p>
+          </div>
+
+          <div class="schedule-list">
+            <article class="schedule-card">
+              <h3>Morning</h3>
+              <div class="schedule-item">
+                <time>08:30 - 08:40</time>
+                <p>Opening Remarks</p>
+              </div>
+              <div class="schedule-item">
+                <time>08:40 - 09:20</time>
+                <p>Invited Talk 1</p>
+              </div>
+              <div class="schedule-item">
+                <time>09:20 - 10:00</time>
+                <p>Invited Talk 2</p>
+              </div>
+              <div class="schedule-item">
+                <time>10:00 - 10:30</time>
+                <p>Poster Session &amp; Coffee Break</p>
+              </div>
+              <div class="schedule-item">
+                <time>10:30 - 11:30</time>
+                <p>Poster Session</p>
+              </div>
+              <div class="schedule-item">
+                <time>11:30 - 12:30</time>
+                <p>
+                  Contributed Oral Presentations
+                  <span class="schedule-note">4 talks, 15 minutes each</span>
+                </p>
+              </div>
+              <div class="schedule-item">
+                <time>12:30 - 14:00</time>
+                <p>Lunch Break</p>
+              </div>
+            </article>
+
+            <article class="schedule-card">
+              <h3>Afternoon</h3>
+              <div class="schedule-item">
+                <time>14:00 - 14:40</time>
+                <p>Invited Talk 3</p>
+              </div>
+              <div class="schedule-item">
+                <time>14:40 - 15:20</time>
+                <p>Invited Talk 4</p>
+              </div>
+              <div class="schedule-item">
+                <time>15:20 - 16:30</time>
+                <p>Poster Session</p>
+              </div>
+              <div class="schedule-item">
+                <time>16:30 - 17:00</time>
+                <p>Poster Session &amp; Coffee Break</p>
+              </div>
+              <div class="schedule-item">
+                <time>17:00 - 17:40</time>
+                <p>Invited Talk 5</p>
+              </div>
+              <div class="schedule-item">
+                <time>17:40 - 18:10</time>
+                <p>Panel Discussion</p>
+              </div>
+              <div class="schedule-item">
+                <time>18:10</time>
+                <p>Closing</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="cfp" class="section shell">
+        <div class="callout">
+          <div class="section-heading">
+            <p class="eyebrow">Call for Papers</p>
+            <div class="rule"></div>
+            <h2>We invite submissions on e-values and modern inference for ML.</h2>
+            <p>
+              Submissions may cover theoretical, algorithmic, or practical aspects of e-values and
+              related ideas. The workshop is non-archival.
+            </p>
+          </div>
+
+          <div class="cfp-grid">
+            <div>
+              <h3>Submission Guidelines</h3>
+              <ul class="check-list">
+                <li>Short papers up to 4 pages, excluding references and optional appendices.</li>
+                <li>
+                  Submit your papers using the
+                  <a href="https://media.neurips.cc/Conferences/NeurIPS2026/Formatting_Instructions_For_NeurIPS_2026.zip" target="_blank" rel="noreferrer">
+                    NeurIPS 2026 LaTeX template
+                  </a>
+                  (with the <code>sglblindworkshop</code> option).
+                </li>
+                <li>Accepted papers will be presented as posters, with a subset selected for oral talks.</li>
+              </ul>
+            </div>
+            <aside class="submission-box">
+              <p class="eyebrow">Submission Portal</p>
+              <p class="submission-note">Submit papers through the workshop OpenReview page.</p>
+              <p class="submission-note">Please create your OpenReview profile <strong>at least two weeks</strong> before the submission deadline.</p>
+              <a class="button primary" href="https://openreview.net/group?id=NeurIPS.cc%2F2026%2FWorkshop%2FE-values" target="_blank" rel="noreferrer">
+                Visit OpenReview
+              </a>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="dates" class="section section-tint">
+        <div class="shell">
+          <div class="section-heading">
+            <p class="eyebrow">Important Dates</p>
+            <div class="rule"></div>
+            <h2>Deadlines</h2>
+            <p>All deadlines are 23:59 Anywhere on Earth (AOE).</p>
+          </div>
+
+          <div class="dates-grid">
+            <article class="date-card">
+              <span>Submission deadline</span>
+              <strong><s>September 5, 2026</s></strong>
+            </article>
+            <article class="date-card">
+              <span>Notification of acceptance</span>
+              <strong>September 29, 2026</strong>
+            </article>
+            <article class="date-card">
+              <span>Camera-ready due</span>
+              <strong>TBD</strong>
+            </article>
+            <article class="date-card">
+              <span>Workshop date</span>
+              <strong>December 13, 2026</strong>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="organizers" class="section shell">
+        <div class="section-heading">
+          <p class="eyebrow">Organizers</p>
+          <div class="rule"></div>
+          <h2>Organizing committee</h2>
+          <p>
+            The organizing team (arranged in alphabetical order by last name) brings together
+            expertise across statistics, sequential inference, and machine learning.
+          </p>
+        </div>
+
+        <div class="organizer-grid">
+          <article class="person-card">
+            <img class="organizer-photo" src="./evals_files/shubhada-agrawal.jpg" alt="Shubhada Agrawal">
+            <h3>
+              <a href="https://sites.google.com/view/shubhada-agrawal/home" target="_blank" rel="noreferrer">
+                Shubhada Agrawal
+              </a>
+            </h3>
+            <p>Indian Institute of Science, Bangalore</p>
+          </article>
+          <article class="person-card">
+            <img class="organizer-photo" src="./evals_files/sebastian-arnold.jpg" alt="Sebastian Arnold">
+            <h3>
+              <a href="https://www.cwi.nl/en/people/sebastian-arnold/" target="_blank" rel="noreferrer">
+                Sebastian Arnold
+              </a>
+            </h3>
+            <p>CWI, Amsterdam</p>
+          </article>
+          <article class="person-card">
+            <img class="organizer-photo" src="./evals_files/yj-choe.jpg" alt="Yo Joong (YJ) Choe">
+            <h3>
+              <a href="https://yjchoe.github.io/" target="_blank" rel="noreferrer">
+                Yo Joong (YJ) Choe
+              </a>
+            </h3>
+            <p>INSEAD,&nbsp;Singapore</p>
+          </article>
+          <article class="person-card">
+            <img class="organizer-photo" src="./evals_files/peter-grunwald.jpg" alt="Peter Grünwald">
+            <h3>
+              <a href="https://safestatistics.com/" target="_blank" rel="noreferrer">
+                Peter Grünwald
+              </a>
+            </h3>
+            <p>CWI, Amsterdam and Leiden University</p>
+          </article>
+          <article class="person-card">
+            <img class="organizer-photo" src="./evals_files/aaditya-ramdas.jpg" alt="Aaditya Ramdas">
+            <h3>
+              <a href="https://web.stanford.edu/~aramdas/" target="_blank" rel="noreferrer">
+                Aaditya Ramdas
+              </a>
+            </h3>
+            <p>Stanford University</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <div>
+          <p class="footer-title">E-Values: From Statistics to ML</p>
+          <p>NeurIPS 2026 Workshop · Palais des Congrès, Paris, France</p>
+        </div>
+        <p>December 13, 2026</p>
+      </div>
+    </footer>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        }
+      };
+    </script>
+    <script async="" src="./evals_files/tex-chtml.js"></script>
+  
+</body></html>
